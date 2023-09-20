@@ -14,7 +14,7 @@ import { HousingService } from '../housing.service';
   template: `
   <section>
     <form>
-      <input type="text" placeholder="Filter by city" #cfilter>
+      <input type="text" placeholder="Filter by name, city, or state code" #cfilter>
 	  <button class="primary" type="button" (click)="filterResults(cfilter.value)">Search</button>
     </form>
   </section>
@@ -41,7 +41,9 @@ export class HomeComponent {
 	  }
 
 	  this.filteredLocationList = this.housingLocationList.filter(
-		housingLocation => housingLocation?.city.toLowerCase().includes(text.toLowerCase())
+		housingLocation => housingLocation?.city.toString().toLowerCase().includes(text.toLowerCase()) 
+			|| housingLocation?.state.toString().toLowerCase().includes(text.toLowerCase())
+			|| housingLocation?.name.toString().toLowerCase().includes(text.toLowerCase())
 	  );
   }
 
